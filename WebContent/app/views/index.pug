@@ -1,0 +1,17 @@
+html  
+  head
+    title= title
+  body
+    h1= message
+    div
+  form(action='/login',method='post', enctype='application/x-www-form-urlencoded')
+    div#passworddiv(data-role='fieldcontain')
+      fieldset(data-role='controlgroup')
+        label(for='password') username
+           input(id='name',type='text',value='',placeholder='',name='name')
+    div(id='hiddendiv',data-role='fieldcontain')
+      fieldset(data-role='controlgroup')
+        label(for='hidden_password') password
+           input(id='hidden_password',type='text',value='',placeholder='',name='password')
+    div(data-role='fieldcontain')   
+      input(type='submit',value='Sign Up',data-transition='fade', data-theme='c')
