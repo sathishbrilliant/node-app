@@ -1,10 +1,10 @@
 var express = require('express');
 var app = express();
-var cons = require('consolidate');
 var path = require('path');
 var bodyParser = require('body-parser');
 var mysqlserver = require("mysql");
 var userService=require("./webContent/app/services/UserService");
+var storageService=require("./webContent/app/services/StorageService");
 
 
 
@@ -39,6 +39,7 @@ app.post('/login', function(req, res) {
 	console.log("control coming to login method"+JSON.stringify(user));
 	userService.insertUser(user);
 	userService.fetchUser(user);
+	storageService.set('userDetails',user);
 	
 	res.render('welcome', {
 		message : user.username
@@ -48,10 +49,14 @@ app.post('/login', function(req, res) {
 
 app.get('/about', function(req, res) {
 	console.log("control coming here");
-	res.render('about');
+	var storagevalues=storageService.get('userDetails');
+	console.log("storage values"+JSON.stringify(storagevalues));
+	res.render('about',{dto:storagevalues});
 });
 
 var portNumber=8080
 app.listen(portNumber, function() {
 	console.log("listening on port number :::::"+portNumber);
 });
+
+/*, enctype='application/x-www-form-urlencoded'*/
